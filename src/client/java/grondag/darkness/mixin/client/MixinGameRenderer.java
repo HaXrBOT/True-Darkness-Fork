@@ -35,6 +35,12 @@ import net.minecraft.client.renderer.LightTexture;
 import grondag.darkness.Darkness;
 import grondag.darkness.LightmapAccess;
 
+
+//? if >=1.21.2 {
+import net.minecraft.util.profiling.Profiler;
+//?}
+
+
 //? if >=1.21 {
 import net.minecraft.client.DeltaTracker;
 //?} else if <=1.20.4 {
@@ -60,14 +66,24 @@ public class MixinGameRenderer {
         final LightmapAccess lightmap = (LightmapAccess) lightTexture;
 
         if (lightmap.darkness_isDirty()) {
-            minecraft.getProfiler().push("lightTex");
+            //? if >=1.21.2 {
+            Profiler.get().push("lightTex");
+            //?} else {
+            /*minecraft.getProfiler().push("lightTex");
+            *///?}
+
             //? if >=1.21 {
             Darkness.updateLuminance(deltaTracker.getGameTimeDeltaTicks(), minecraft, (GameRenderer) (Object) this,
                 lightmap.darkness_prevFlicker());
             //?} else {
             /*Darkness.updateLuminance(tickDelta, minecraft, (GameRenderer) (Object) this, lightmap.darkness_prevFlicker());
             *///?}
-            minecraft.getProfiler().pop();
+
+            //? if >=1.21.2 {
+            Profiler.get().pop();
+            //?} else {
+            /*minecraft.getProfiler().pop();
+             *///?}
         }
     }
 }

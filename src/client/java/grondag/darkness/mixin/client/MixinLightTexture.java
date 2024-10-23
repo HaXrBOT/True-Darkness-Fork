@@ -50,8 +50,13 @@ public class MixinLightTexture implements LightmapAccess {
         if (Darkness.enabled && lightPixels != null) {
             for (int b = 0; b < 16; b++) {
                 for (int s = 0; s < 16; s++) {
-                    final int color = Darkness.darken(lightPixels.getPixelRGBA(b, s), b, s);
+                    //? if >=1.21.2 {
+                    final int color = Darkness.darken(lightPixels.getPixel(b, s), b, s);
+                    lightPixels.setPixel(b, s, color);
+                    //?} else {
+                    /*final int color = Darkness.darken(lightPixels.getPixelRGBA(b, s), b, s);
                     lightPixels.setPixelRGBA(b, s, color);
+                     *///?}
                 }
             }
         }
