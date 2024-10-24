@@ -97,7 +97,8 @@ public class Darkness {
                 if (angle > 0.25f && angle < 0.75f) {
                     final float oldWeight = Math.max(0, (Math.abs(angle - 0.5f) - 0.2f)) * 20;
                     final float moon = CONFIG.ignoreMoonPhase() ? 0 : world.getMoonBrightness();
-                    return Mth.lerp(oldWeight * oldWeight * oldWeight, moon * moon, 1f);
+                    final float moonBrightness = CONFIG.gradualMoonPhaseDarkness() ? moon : moon * moon;
+                    return Mth.lerp(oldWeight * oldWeight * oldWeight, moonBrightness, 1f);
                 } else {
                     return 1;
                 }
