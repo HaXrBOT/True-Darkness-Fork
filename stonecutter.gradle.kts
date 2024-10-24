@@ -3,7 +3,7 @@ plugins {
     id("fabric-loom") version "1.7-SNAPSHOT" apply false
     //id("dev.kikugie.j52j") version "1.0.2" apply false // Enables asset processing by writing json5 files
 }
-stonecutter active "1.21.1" /* [SC] DO NOT EDIT */
+stonecutter active "1.21.2" /* [SC] DO NOT EDIT */
 
 // Builds every version into `build/libs/{mod.version}/`
 stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chiseled) {
@@ -31,28 +31,29 @@ stonecutter configureEach {
 // GitHub Action Stuff
 var releaseText = StringBuilder()
 
-releaseText.append("name: Create Release\n")
+releaseText.append("""name: Create Release
+on:
+  release:
+    types: [published]
 
-releaseText.append("on:\n")
-releaseText.append("  release:\n")
-releaseText.append("    types: [published]\n")
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
 
-releaseText.append("jobs:\n")
-releaseText.append("  build:\n")
-releaseText.append("    runs-on: ubuntu-latest\n")
-releaseText.append("    steps:\n")
-releaseText.append("      - name: checkout repository\n")
-releaseText.append("        uses: actions/checkout@v2\n\n")
-releaseText.append("      - name: setup jdk 21\n")
-releaseText.append("        uses: actions/setup-java@v1\n")
-releaseText.append("        with:\n")
-releaseText.append("          java-version: 21\n\n")
-releaseText.append("      - name: make gradle wrapper executable\n")
-releaseText.append("        run: chmod +x ./gradlew\n\n")
-releaseText.append("      - name: build\n")
-releaseText.append("        run: ./gradlew chiseledBuild\n")
+      - name: setup jdk 21
+        uses: actions/setup-java@v1
+        with:
+          java-version: 21
 
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
 
+      - name: build
+        run: ./gradlew chiseledBuild
+""")
 
 
 var actionFile = file("$rootDir/.github/workflows/publish.yml")

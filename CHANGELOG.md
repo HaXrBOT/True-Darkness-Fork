@@ -1,4 +1,2 @@
-- Fixed *Dark Nether Fog* & *Dark End Fog* options not working.
-- Changed *Dark Nether Fog* & *Dark End Fog* option fields into sliders.
-- Changed description in Mod Menu.
-- Switched to use Stonecutter toolchain for development.
+- 1.21.2 support.
+- Bumped Fabric loader to 0.16.7.
