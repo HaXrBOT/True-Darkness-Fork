@@ -46,8 +46,6 @@ public class Darkness {
 
     private static final float[] BTW_MOON_BRIGHTNESS_BY_PHASE = new float[]{1.25F, 0.875F, 0.75F, 0.5F, 0F, 0.5F, 0.75F, 1.25F};
 
-    private static final float maxMoonBrightness = CONFIG.btwMoonPhaseDarkness() ? 1.25f : 1.0f;
-
 
     /*
     public static Logger LOG = LogManager.getLogger(DarknessInit.MOD_NAME);
