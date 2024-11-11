@@ -44,6 +44,11 @@ public class Darkness {
     static double darkNetherFogEffective;
     static double darkEndFogEffective;
 
+    private static final float[] BTW_MOON_BRIGHTNESS_BY_PHASE = new float[]{1.25F, 0.875F, 0.75F, 0.5F, 0F, 0.5F, 0.75F, 1.25F};
+
+    private static final float maxMoonBrightness = CONFIG.btwMoonPhaseDarkness() ? 1.25f : 1.0f;
+
+
     /*
     public static Logger LOG = LogManager.getLogger(DarknessInit.MOD_NAME);
 
@@ -97,8 +102,10 @@ public class Darkness {
                 if (angle > 0.25f && angle < 0.75f) {
                     final float oldWeight = Math.max(0, (Math.abs(angle - 0.5f) - 0.2f)) * 20;
                     final float moon = CONFIG.ignoreMoonPhase() ? 0 : world.getMoonBrightness();
-                    final float moonBrightness = CONFIG.gradualMoonPhaseDarkness() ? moon : moon * moon;
-                    return Mth.lerp(oldWeight * oldWeight * oldWeight, moonBrightness, 1f);
+                    final float moonBrightness = CONFIG.btwMoonPhaseDarkness()
+                            ? BTW_MOON_BRIGHTNESS_BY_PHASE[world.getMoonPhase()]
+                            : (CONFIG.gradualMoonPhaseDarkness() ? moon : moon * moon);
+                    return Mth.lerp(oldWeight * oldWeight * oldWeight, moonBrightness, 1.0f);
                 } else {
                     return 1;
                 }

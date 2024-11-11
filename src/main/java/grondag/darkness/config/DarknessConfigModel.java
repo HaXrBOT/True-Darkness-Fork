@@ -25,5 +25,6 @@ public class DarknessConfigModel {
     public boolean blockLightOnly = false;
     public boolean ignoreMoonPhase = false;
     public boolean gradualMoonPhaseDarkness = false;
+    public boolean btwMoonPhaseDarkness = false;
     public boolean requireMod = false;
 }
