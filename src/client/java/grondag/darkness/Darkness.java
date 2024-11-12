@@ -99,7 +99,7 @@ public class Darkness {
                     final float moon = CONFIG.ignoreMoonPhase() ? 0 : world.getMoonBrightness();
 
                     // The case values DEFAULT, GRADUAL & BTW will show as not being defined. But I can assure you that they work just fine.
-                    float moonBrightness = switch (CONFIG.darknessStyle()) {
+                    float moonBrightness = switch (CONFIG.moonPhaseStyle()) {
                         case DEFAULT -> moon * moon;
                         case GRADUAL -> moon;
                         case BTW -> BTW_MOON_BRIGHTNESS_BY_PHASE[world.getMoonPhase()];

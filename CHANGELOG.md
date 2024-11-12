@@ -1,1 +1,4 @@
-- Added config option for gradual moon phase darkness transitions. (Thank you **[minhty-fresh](https://github.com/minhty-fresh)** for the PR)
+- Added option to use different moon phase darkening styles.
+    - **Default**: The original style.
+    - **Gradual**: Makes the darkening more linear than the original (Thank you **[minhty-fresh](https://github.com/minhty-fresh)** for the PR)
+    - **Better Than Wolves**: Mimics the style of the BTW mod. (Thank you **[ivangeevo](https://github.com/ivangeevo)** for the PR)
