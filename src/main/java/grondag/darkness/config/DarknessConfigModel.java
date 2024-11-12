@@ -24,6 +24,10 @@ public class DarknessConfigModel {
     public double darkEndFog = 0.0;
     public boolean blockLightOnly = false;
     public boolean ignoreMoonPhase = false;
-    public boolean gradualMoonPhaseDarkness = false;
+    public MoonPhaseStyle moonPhaseStyle = MoonPhaseStyle.DEFAULT;
     public boolean requireMod = false;
+
+    public enum MoonPhaseStyle {
+        DEFAULT, GRADUAL, BTW;
+    }
 }
