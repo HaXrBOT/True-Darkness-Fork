@@ -31,8 +31,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import net.minecraft.util.Mth;
 
@@ -45,7 +43,6 @@ public class Darkness {
     static double darkEndFogEffective;
 
     private static final float[] BTW_MOON_BRIGHTNESS_BY_PHASE = new float[]{1.25F, 0.875F, 0.75F, 0.5F, 0F, 0.5F, 0.75F, 1.25F};
-
 
     /*
     public static Logger LOG = LogManager.getLogger(DarknessInit.MOD_NAME);
@@ -100,10 +97,15 @@ public class Darkness {
                 if (angle > 0.25f && angle < 0.75f) {
                     final float oldWeight = Math.max(0, (Math.abs(angle - 0.5f) - 0.2f)) * 20;
                     final float moon = CONFIG.ignoreMoonPhase() ? 0 : world.getMoonBrightness();
-                    final float moonBrightness = CONFIG.btwMoonPhaseDarkness()
-                            ? BTW_MOON_BRIGHTNESS_BY_PHASE[world.getMoonPhase()]
-                            : (CONFIG.gradualMoonPhaseDarkness() ? moon : moon * moon);
+
+                    // The case values DEFAULT, GRADUAL & BTW will show as not being defined. But I can assure you that they work just fine.
+                    float moonBrightness = switch (CONFIG.darknessStyle()) {
+                        case DEFAULT -> moon * moon;
+                        case GRADUAL -> moon;
+                        case BTW -> BTW_MOON_BRIGHTNESS_BY_PHASE[world.getMoonPhase()];
+                    };
                     return Mth.lerp(oldWeight * oldWeight * oldWeight, moonBrightness, 1.0f);
+
                 } else {
                     return 1;
                 }
